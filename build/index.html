@@ -33,41 +33,139 @@
           <p class="text-lg text-white">The <span class="text-3xl font-bold">Revolute</span> is a <span class="text-3xl font-bold">Smart Dial/Scroll Wheel Device</span> that allows users to perform various actions through simple rotation between the fingertips, making it easier to manage complex tasks/software applications without constantly clicking back and forth with a mouse or keyboard.</p>
         </div>
     </div>
+    <!---->
     <div class="w-full min-h-screen flex flex-col items-center bg-black pt-24 pb-12">
-        <div class="textcontainer max-w-none">
-          <div class="caption">title thing for video demos???</div>
-          <div id="image-container" class="w-11/12 aspect-[16/11] p-0">
-            <div class="image h-max">
-              <video class="video-bg w-full h-auto poster-images/Revolute/Demo/1.png" muted playsinline autoplay loop>
-                <source src="images/Revolute/Demo/1.mp4" type="video/mp4" />
-                <div>demo vid whatever and descriptions yadayada</div>
-              </video>
-            </div>
-            <div class="image h-max">
-              <video class="video-bg w-full h-auto poster-images/Revolute/Demo/2.png" muted playsinline autoplay loop>
-                <source src="images/Revolute/Demo/2.mp4" type="video/mp4" />
-                <div>demo vid whatever and descriptions yadayada</div>
-              </video>
-            </div>
-            <div class="image h-max">
-              <video class="video-bg w-full h-auto poster-images/Revolute/Demo/3.png" muted playsinline autoplay loop>
-                <source src="images/Revolute/Demo/3.mp4" type="video/mp4" />
-                <div>demo vid whatever and descriptions yadayada</div>
-              </video>
-            </div>
-            <div class="image h-max">
-              <video class="video-bg w-full h-auto poster-images/Revolute/Demo/4.png" muted playsinline autoplay loop>
-                <source src="images/Revolute/Demo/4.mp4" type="video/mp4" />
-                <div>demo vid whatever and descriptions yadayada</div>
-              </video>
-            </div>
-            <div id="controls" class="flex justify-between items-center mt-4">
-              <div id="prevBtn" class="bg-gray-500 p-2 rounded cursor-pointer">Prev</div>
-              <div id="nextBtn" class="bg-gray-500 p-2 rounded cursor-pointer">Next</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <style>
+        .transition-left {
+           animation: transitionLeft 0.5s ease-in-out;
+         }
+     
+        .transition-right {
+           animation: transitionRight 0.5s ease-in-out;
+         }
+     
+         @keyframes transitionLeft {
+           from {
+             transform: translateX(100%);
+           }
+           to {
+             transform: translateX(0);
+           }
+         }
+     
+         @keyframes transitionRight {
+           from {
+             transform: translateX(-100%);
+           }
+           to {
+             transform: translateX(0);
+           }
+         }
+       </style>
+     </head>
+     
+     <div class="w-full min-h-screen flex flex-col items-center bg-black pt-24 pb-12">
+       <div class="textcontainer max-w-none">
+         <div class="caption">Demonstration videos</div>
+         <div id="image-container" class="w-11/12 aspect-[16/11] p-0">
+           <div class="image h-max">
+             <video id="currentVideo" class="video-bg w-full h-auto poster-images/Revolute/Demo/1.png" muted playsinline autoplay loop>
+               <source src="./img/demovids/1.mp4" type="video/mp4" />
+               <div>video 1</div>
+             </video>
+           </div>
+         </div>
+         <div id="controls" class="flex justify-between items-center mt-4">
+           <div id="prevBtn" class="bg-gray-500 p-2 rounded cursor-pointer">Prev</div>
+           <div id="nextBtn" class="bg-gray-500 p-2 rounded cursor-pointer">Next</div>
+         </div>
+       </div>
+       <script>
+         let videos = [
+           {
+             poster: './img/demovids/1 large.png',
+             src: './img/demovids/1.mp4'
+           },
+           {
+             poster: './img/demovids/2 large.png',
+             src: './img/demovids/2.mp4'
+           },
+           {
+             poster: './img/demovids/3 large.png',
+             src: './img/demovids/3.mp4'
+           },
+           {
+             poster: './img/demovids/4 large.png',
+             src: './img/demovids/4.mp4'
+           }
+         ];
+         let currentVideoIndex = 0;
+         const currentVideo = document.getElementById('currentVideo');
+         const prevBtn = document.getElementById('prevBtn');
+         const nextBtn = document.getElementById('nextBtn');
+         function updateVideo(direction) {
+           let className;
+           if (direction === 'prev') {
+             className = 'transition-left';
+           } else {
+             className = 'transition-right';
+           }
+           currentVideo.classList.add(className);
+           currentVideo.poster = videos[currentVideoIndex].poster;
+           currentVideo.src = videos[currentVideoIndex].src;
+           setTimeout(() => {
+             currentVideo.classList.remove(className);
+           }, 500);
+         }
+         prevBtn.addEventListener('click', () => {
+           currentVideoIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
+           updateVideo('prev');
+         });
+         nextBtn.addEventListener('click', () => {
+           currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+           updateVideo('next');
+         });
+         updateVideo();
+       </script>
+     </div>
+      <script>
+        let videos = [
+          {
+            poster: './img/demovids/1 large.png',
+            src: './img/demovids/1.mp4'
+          },
+          {
+            poster: './img/demovids/2 large.png',
+            src: './img/demovids/2.mp4'
+          },
+          {
+            poster: './img/demovids/3 large.png',
+            src: './img/demovids/3.mp4'
+          },
+          {
+            poster: './img/demovids/4 large.png',
+            src: './img/demovids/4.mp4'
+          }
+        ];
+        let currentVideoIndex = 0;
+        const currentVideo = document.getElementById('currentVideo');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        function updateVideo() {
+          currentVideo.poster = videos[currentVideoIndex].poster;
+          currentVideo.src = videos[currentVideoIndex].src;
+        }
+        prevBtn.addEventListener('click', () => {
+          currentVideoIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
+          updateVideo();
+        });
+        nextBtn.addEventListener('click', () => {
+          currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+          updateVideo();
+        });
+        updateVideo();
+      </script>
+    </div>
     <div class="container mx-auto py-10 flex place-content-center image-text-container">
       <div class="w-full md:w-1/2">
         <img src=".\img\open1.png" alt="Description of the image" class="h-auto max-w-full object-cover rounded-lg shadow-lg">
